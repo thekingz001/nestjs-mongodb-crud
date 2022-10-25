@@ -2,8 +2,7 @@
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
-
-    <p align="center">
+<p align="center">
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
@@ -15,58 +14,49 @@
   <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
     <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
   <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+  </p>
 
 ## รายละเอียด
-
 Nest Framework TypeScript
 
 ## การติดตั้ง
-
 ```bash
 $ npm install 
 ```
 
 ## การ Ruท แอปพลิเคชัน
-
 ```bash
 # Run
 $ npm run start
 
 # Run ผู้พัฒนาโหมด
 $ npm run start:dev
-
 ```
-
-## ทดสอบ แอปพลิเคชัน
-
+## ออกแบบระบบร้านขายหนังสือ โดยมี Feature ดังนี้
 ```bash
-# unit tests
-$ npm run test
+[ ✔️] เพิ่ม/ลบ/แก้ไขข้อมูลสมาชิก
 
-# e2e tests
-$ npm run test:e2e
+[✔️] แสดงรายการสมาชิก (สามารถ filter จาก ชื่อผู้ใช้งาน, ชื่อ-นามสกุล)
 
-# test coverage
-$ npm run test:cov
+[🟡] สามารถระงับการใช้งานของสมาชิกได้
+
+[ ] รายงานสมาชิกใหม่
+
+[🟡] สมาชิกสามารถ login ได้ด้วย ชื่อผู้ใช้งาน (login ผิดพลาด 3 ครั้งจะถูกระงับ 30 วินาที)
+
+[ ] สมาชิกสามารถซื้อหนังสือได้
+
+[ ] ประวัติการซื้อหนังสือของสมาชิก
+
+[ ] รายงานการขายหนังสือที่ถูกขายในแต่หมวดหมู่, หมวดหมู่ละกี่เล่ม มีเรื่องออะไรบ้าง ราคาเท่าไหร่
+
+[✔️] เพิ่ม/ลบ/แก้ไขข้อมูลหนังสือ (default: จำนวนหนังสือที่เพิ่มใหม่ 10 เล่ม)
+
+[✔️] แสดงรายการหนังสือ (สามารถ filter จาก ชื่อหนังสือ, เรียงลำดับจากจำนวนหนังสือ, ราคา)
+
+[ ] สมาชิกที่ถูกระงับจะไม่สามารถซื้อหนังสือ
 ```
-
 ## Edit By
 ```bash
 KanSaz
 ```
-<!-- ## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE). -->
