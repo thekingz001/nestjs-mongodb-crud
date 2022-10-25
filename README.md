@@ -1,3 +1,4 @@
+<h3 align="center">NestJS + Mongo Test</h3>
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
@@ -22,30 +23,28 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## รายละเอียด
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Nest Framework TypeScript
 
-## Installation
+## การติดตั้ง
 
 ```bash
-$ npm install
+$ npm install 
 ```
 
-## Running the app
+## การ Ruท แอปพลิเคชัน
 
 ```bash
-# development
+# Run
 $ npm run start
 
-# watch mode
+# Run ผู้พัฒนาโหมด
 $ npm run start:dev
 
-# production mode
-$ npm run start:prod
 ```
 
-## Test
+## ทดสอบ แอปพลิเคชัน
 
 ```bash
 # unit tests
@@ -58,7 +57,11 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
+## Edit By
+```bash
+KanSaz
+```
+<!-- ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
@@ -70,4 +73,4 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+Nest is [MIT licensed](LICENSE). -->
