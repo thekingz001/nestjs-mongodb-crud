@@ -1,37 +1,19 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateUserDto } from './create-user.dto';
-export class UpdateUserDto extends PartialType(CreateUserDto) {}
-// export class UpdateUserDto extends PartialType(CreateUserDto) {
-  
-//     readonly  name: string;
-    
-//     readonly  username: string;
-    
-//     readonly  password: string;
-    
-//     readonly  fristname: string;
-      
-//     readonly  lastname: string;
-    
-//     readonly  age: number;
-  
-//     readonly  type: string;
-// }
-
-// export class UpdateUserDto {
-//     readonly  _id: string;
-    
-//     readonly  name: string;
-    
-//     readonly  username: string;
-    
-//     readonly  password: string;
-    
-//     readonly  fristname: string;
-      
-//     readonly  lastname: string;
-    
-//     readonly  age: number;
-  
-//     readonly  type: string;
-//   }
+import { ApiProperty } from '@nestjs/swagger';
+export class UpdateUserDto extends PartialType(CreateUserDto) {
+    // @ApiProperty()
+    // readonly  _id: string;
+    @ApiProperty()
+    readonly  username: string;
+    @ApiProperty()
+    readonly  password: string;
+    @ApiProperty()
+    readonly  fristname: string;
+    @ApiProperty()
+    readonly  lastname: string;
+    @ApiProperty()
+    readonly  age: string;
+    @ApiProperty()
+    readonly  type: string;    
+}

@@ -1,15 +1,54 @@
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsNumber, IsOptional, IsString } from 'class-validator'
+// const test = Math.floor(Math.random() * (0 - 9999999)) + 9999999;
 export class CreateUserDto {
-  readonly  _id: string;
-  
-  readonly  username: string;
-  
-  readonly  password: string;
-  
-  readonly  fristname: string;
-    
-  readonly  lastname: string;
-  
-  readonly  age: number;
+  // @ApiProperty({
+  //   type: String,
+  //   example: '',
+  // })
+  // @IsString()
+  // _id: string;
 
-  readonly  type: string;
+  @ApiPropertyOptional({
+    type: String,
+    example: '',
+  })
+  @IsOptional()
+  username: string;
+
+  @ApiPropertyOptional({
+    type: String,
+    example: '',
+  })
+  @IsOptional()
+  password: string;
+
+  @ApiProperty({
+    type: String,
+    example: '',
+  })
+  @IsString()
+  fristname: string;
+
+  @ApiProperty({
+    type: String,
+    example: '',
+  })
+  @IsString()
+  lastname: string;
+
+  @ApiProperty({
+    type: String,
+    example: '',
+  })
+  @IsString()
+  age: string;
+
+  @ApiProperty({
+    type: String,
+    example: '',
+  })
+  @IsString()  
+  type: string;
+
 }

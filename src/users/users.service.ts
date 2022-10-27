@@ -3,7 +3,7 @@ import { InjectModel  } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Users, UsersDocument } from 'src/schema/users.schema';
 import { CreateUserDto } from './dto/create-user.dto';
-import { findUserDto } from './dto/find-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 // var test_data = [
@@ -11,7 +11,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 //   {id:'2', name:'k2', type:'admin2'},
 //   {id:'3', name:'k3', type:'admin3'}
 // ];
-export type User = any;
 @Injectable()
 export class UsersService {
   // constructor(@InjectModel(Users.name) private usersModel: Model<UsersDocument>) {}
@@ -20,6 +19,8 @@ export class UsersService {
   // async create(createUserDto: CreateUserDto): Promise<Users> {
     // return 'This action adds a new user';
     const createdUser = await this.usersModel.create(createUserDto);
+    console.log('Add User Succeed');
+    
     return createdUser;
     // return new this.usersModel.create(createdUser);
   }
@@ -34,6 +35,7 @@ export class UsersService {
     // return `This action returns a #${id} user`;
     return this.usersModel.find({ $or:[ {username: { $regex: '.*' + id + '.*' }}, {fristname: { $regex: '.*' + id + '.*' }} ]});
   }
+  
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     // return `This action updates a #${id} user`;
@@ -59,13 +61,17 @@ export class UsersService {
       username: 'maria',
       password: 'guess',
     },
+    {
+      userId: 3,
+      username: 'k',
+      password: '123',
+    },
   ];
 
-  async findOneAuth(username: string): Promise<User | undefined> {
-    return this.users.find(user => user.username === username);
+  async findOneauth(username: string): Promise<any | undefined> {
+    return this.usersModel.findOne({ username });
   }
 }
-
 export class UsersServiceAuth {
 
 }

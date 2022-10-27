@@ -1,27 +1,49 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-
+import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
+import { Document, Mongoose } from 'mongoose';
+const mongoose = require('mongoose');
+// var ObjectId = mongoose.Types.ObjectId;
 export type UsersDocument = Users & Document;
-
-@Schema()
+@Schema({
+  autoIndex: true, // <--
+})
 export class Users {
-  
-  @Prop()
-  _id: number;
+  // @Prop({
+  //   type: Number,
+  //   index: true,
+  //   // required: true,
+  //   auto: true,
+  //   unique: true,
+  // })
+  // _id: ObjectId;
+  @Field(() => ID,{ nullable: true })
+  _id: string;
 
-  @Prop()
+  @Prop({
+    required: true,
+    unique: true,
+    type: String,
+  })
   username: string;
 
-  @Prop()
+  @Prop({
+    type: String,
+  })
   password: string;
 
-  @Prop()
+  @Prop({
+    type: String,
+  })
   fristname: string;
   
-  @Prop()
+  @Prop({
+    type: String,
+  })
   lastname: string;
 
-  @Prop()
+  @Prop({
+    type: Number,
+  })
   age: number;
 
   @Prop({ default: "user" })
