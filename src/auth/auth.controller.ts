@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
 
-@ApiTags('Auth')
+// @ApiTags('Auth')
 @Controller('Auth')
 export class AuthController {
   constructor(
@@ -15,12 +15,12 @@ export class AuthController {
     private usersService: UsersService
     ) {}
   
-  @UseGuards(AuthGuard('local'))
-  @Post('auth/login')
+  // @UseGuards(AuthGuard('local'))
+  // @Post('auth/login')
   async login(@Body() loginUserDto: LoginUserDto) {
     // console.log(loginUserDto.username);
     const testt = await this.usersService.findOneauth(loginUserDto.username);
-    console.log(testt);
+    // console.log(testt);
     return this.authService.login(testt);
   }
 }

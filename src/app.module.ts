@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import configuration from './config/configuration';
 import * as redisStore from 'cache-manager-redis-store';
 import { APP_GUARD } from '@nestjs/core';
+import { OrderModule } from './order/order.module';
 
 @Module({
   // imports: [MongooseModule.forRoot('mongodb://localhost/nestJS'), UsersModule, AuthModule],
@@ -20,7 +21,8 @@ import { APP_GUARD } from '@nestjs/core';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
-    })
+    }),
+    OrderModule
   ],
   controllers: [AppController],
   providers: [

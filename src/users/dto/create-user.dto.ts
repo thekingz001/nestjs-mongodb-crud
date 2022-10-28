@@ -38,11 +38,11 @@ export class CreateUserDto {
   lastname: string;
 
   @ApiProperty({
-    type: String,
-    example: '',
+    type: Number,
+    // example: '',
   })
-  @IsString()
-  age: string;
+  @IsString()  
+  age: number;
 
   @ApiProperty({
     type: String,

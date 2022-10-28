@@ -37,7 +37,7 @@ export class UsersService {
   }
   
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto) {
     // return `This action updates a #${id} user`;
     // return this.usersModel.updateOne({_id: id},{$set: updateUserDto});
     // console.log(id , updateUserDto);
@@ -45,7 +45,7 @@ export class UsersService {
     return this.usersModel.updateOne({_id: id},{$set:updateUserDto});
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     // return `This action removes a #${id} user`;
     return this.usersModel.remove({_id: id});
   }

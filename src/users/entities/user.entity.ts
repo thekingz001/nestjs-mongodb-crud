@@ -8,41 +8,41 @@ export default class UserEntity {
     // @IsString()
     // _id: string;
   
-    @ApiPropertyOptional({
+    @ApiProperty({
       type: String,
       example: '',
     })
     @IsOptional()
     username: string;
   
-    @ApiPropertyOptional({
+    @ApiProperty({
       type: String,
       example: '',
     })
     @IsOptional()
     password: string;
   
-    @ApiProperty({
+    @ApiPropertyOptional({
       type: String,
       example: '',
     })
     @IsString()
     fristname: string;
   
-    @ApiProperty({
+    @ApiPropertyOptional({
       type: String,
       example: '',
     })
     @IsString()
     lastname: string;
   
-    @ApiProperty({
-      type: String,
+    @ApiPropertyOptional({
+      type: Number,
     })
     @IsString()
-    age: string;
+    age: number;
   
-    @ApiProperty({
+    @ApiPropertyOptional({
       type: String,
       example: '',
     })
