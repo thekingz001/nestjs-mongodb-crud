@@ -15,7 +15,7 @@ export class UsersController {
     type: UserEntity,
   })
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'testse' })
+  @ApiOperation({ summary: '' })
   @Post('add-users')
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
