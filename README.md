@@ -31,6 +31,9 @@ $ npm run start
 
 # Run ผู้พัฒนาโหมด
 $ npm run start:dev
+
+#swagger
+http://localhost:5555/api
 ```
 ## ออกแบบระบบร้านขายหนังสือ โดยมี Feature ดังนี้
 ```bash
