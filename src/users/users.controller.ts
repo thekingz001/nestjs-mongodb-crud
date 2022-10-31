@@ -12,7 +12,7 @@ export class UsersController {
   constructor(
     private readonly usersService: UsersService
     ) {}
-  @Post('add-users')
+  @Post('Add-users')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   @ApiResponse({
@@ -25,16 +25,26 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
-  @Get()
+  @Get('getAll-users')
+  @ApiResponse({
+    status: 200,
+    description: 'Success',
+  })
+  @ApiOperation({ summary: '' })
   findAll() {
     return this.usersService.findAll();
   }
 
-  @Get(':name')
+  @Get('getOne-users:name')
+  @ApiResponse({
+    status: 200,
+    description: 'Success',
+  })
+  @ApiOperation({ summary: '' })
   findOne(@Param('name') id: string) {
     return this.usersService.findOne(id);
   }
-  @Put(':id')
+  @Put('edit:id')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
@@ -44,7 +54,7 @@ export class UsersController {
     return this.usersService.update(id, updateUserDto);
     // return test;
   }
-  @Delete(':id')
+  @Delete('delete:id')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {

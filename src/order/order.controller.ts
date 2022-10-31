@@ -60,14 +60,14 @@ export class OrderController {
     return this.orderService.create(neworder);
   }
 
-  @Get()
+  @Get('getAll-order')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   async findAll() {
     return this.orderService.findAll();
   }
 
-  @Get(':type')
+  @Get('getOrderBy:type')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   async findOne(@Param('name') name: string) {
