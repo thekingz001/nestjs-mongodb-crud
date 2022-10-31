@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
-export type BooksDocument = Books & Document;
+export type OrdersDocument = Order & Document;
 
 @Schema()
-export class Books {
+export class Order {
   @Prop({
     type: Types.ObjectId,
     unique: true,
@@ -20,14 +20,10 @@ export class Books {
   // };
   @Prop({
     type: String,
-    required: true,
     unique: true,
   })
-  book_name: string
-  // book_name: {
-  //   index: true,
-  //   unique: true,
-  //   required: true,
+  order_name
+  // order_name: {
   //   type: string,
   // };
   @Prop({
@@ -35,7 +31,7 @@ export class Books {
   })
   price: number
   // price: {
-  //   type: string,
+  //   type: number,
   // };
   @Prop({
     type: String,
@@ -45,15 +41,15 @@ export class Books {
   //   type: string,
   // };
   @Prop({
-    type: Number,
-    default: 10,
+    type: String,
+    default: 1,
   })
-  amount: number
+  amount: string
   // amount: {
-  //   type: number,
-  //   default: 10
+  //   type: string,
+  //   default: 1
   // };
 
 }
 
-export const BooksSchema = SchemaFactory.createForClass(Books);
+export const OrdersSchema = SchemaFactory.createForClass(Order);

@@ -11,6 +11,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 //   {id:'2', name:'k2', type:'admin2'},
 //   {id:'3', name:'k3', type:'admin3'}
 // ];
+
 @Injectable()
 export class UsersService {
   // constructor(@InjectModel(Users.name) private usersModel: Model<UsersDocument>) {}
@@ -40,9 +41,12 @@ export class UsersService {
   async update(id: string, updateUserDto: UpdateUserDto) {
     // return `This action updates a #${id} user`;
     // return this.usersModel.updateOne({_id: id},{$set: updateUserDto});
-    // console.log(id , updateUserDto);
+    console.log(id , updateUserDto);
     // const tsss = '{"name": "test"}';
-    return this.usersModel.updateOne({_id: id},{$set:updateUserDto});
+    // const test = this.usersModel.updateOne({_id: id},{$set:updateUserDto});
+    // console.log(test);
+    
+    return this.usersModel.updateOne({_id: id},{$set: {"coin": 999}});
   }
 
   async remove(id: string) {
@@ -50,23 +54,23 @@ export class UsersService {
     return this.usersModel.remove({_id: id});
   }
 
-  private readonly users = [
-    {
-      userId: 1,
-      username: 'john',
-      password: 'changeme',
-    },
-    {
-      userId: 2,
-      username: 'maria',
-      password: 'guess',
-    },
-    {
-      userId: 3,
-      username: 'k',
-      password: '123',
-    },
-  ];
+  // private readonly users = [
+  //   {
+  //     userId: 1,
+  //     username: 'john',
+  //     password: 'changeme',
+  //   },
+  //   {
+  //     userId: 2,
+  //     username: 'maria',
+  //     password: 'guess',
+  //   },
+  //   {
+  //     userId: 3,
+  //     username: 'k',
+  //     password: '123',
+  //   },
+  // ];
 
   async findOneauth(username: string): Promise<any | undefined> {
     return this.usersModel.findOne({ username });

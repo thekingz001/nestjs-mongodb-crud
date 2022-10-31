@@ -14,23 +14,35 @@ export class BooksService {
     return createdBooks;
   }
 
-  findAll() {
+  async findAll() {
     // return `This action returns all books`;
     return this.booksModel.find();
   }
 
-  findOne(id: string) {
+  async findOne(id: string) {
     // return `This action returns a #${id} book`;
     return this.booksModel.find({book_name: { $regex: '.*' + id + '.*' }}).sort({amount:1,price:1});
   }
 
-  update(id: number, updateBookDto: UpdateBookDto) {
+  async update(id: string, updateBookDto: UpdateBookDto) {
     // return `This action updates a #${id} book`;
     return this.booksModel.updateOne({_id: id},{$set:updateBookDto});
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     // return `This action removes a #${id} book`;
     return this.booksModel.remove({_id: id});
+  }
+
+
+  // async findBook(name: string) {
+  //   const  book = this.booksModel.find({name});
+  //   console.log(book);
+  //   return book;
+  // }
+
+  async findBook(name: string) {
+    // return `This action returns a #${id} book`;
+    return this.booksModel.find({book_name: name});
   }
 }

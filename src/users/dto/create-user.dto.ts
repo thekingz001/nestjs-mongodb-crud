@@ -41,8 +41,15 @@ export class CreateUserDto {
     type: Number,
     // example: '',
   })
-  @IsString()  
+  @IsNumber()  
   age: number;
+  
+  @ApiProperty({
+    type: Number,
+    // example: '',
+  })
+  @IsNumber()  
+  coin: number;
 
   @ApiProperty({
     type: String,
