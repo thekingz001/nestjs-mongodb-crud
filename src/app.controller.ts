@@ -1,9 +1,9 @@
 import { Controller, Get, Post, UseGuards, Request, Inject, CACHE_MANAGER, Body } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AppService } from './app.service';
-import Cache from 'cache-manager';
+// import Cache from 'cache-manager';
 import { ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
+// import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { LoginUserDto } from './users/dto/login-user.dto';
 import { AuthService } from './auth/auth.service';
 import { UsersService } from './users/users.service';

@@ -9,6 +9,7 @@ export class Order {
     type: Types.ObjectId,
     unique: true,
     auto: true,
+    index: true,
     default: Types.ObjectId,
   })
   _id: string;
@@ -18,14 +19,12 @@ export class Order {
   //   required: true,
   //   auto: true,
   // };
+
   @Prop({
     type: String,
-    unique: true,
   })
-  order_name
-  // order_name: {
-  //   type: string,
-  // };
+  order_name: string
+
   @Prop({
     type: Number,
   })

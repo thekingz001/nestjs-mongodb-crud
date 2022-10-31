@@ -21,7 +21,7 @@ export class UsersController {
     type: UserEntity,
   })
   @ApiOperation({ summary: '' })
-  create(@Headers() headers:any, @Body() createUserDto: CreateUserDto) {
+  create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
@@ -39,7 +39,7 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     // const test = this.usersService.update(+id, updateUserDto);
-    // console.log(updateUserDto);
+    console.log(updateUserDto);
     // this.usersService.update(+id, updateUserDto);
     return this.usersService.update(id, updateUserDto);
     // return test;

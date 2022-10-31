@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe';
 import { useContainer } from 'class-validator';
+const mongoose = require('mongoose');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -33,7 +34,17 @@ const document = SwaggerModule.createDocument(app, options)
 SwaggerModule.setup('api', app, document, {
 customSiteTitle: 'My App API documentation ByKanSaz',
 })
-  
+
+mongoose.connect('mongodb://localhost/nestJS', {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true
+
+})
+.then(() => console.log('MongoDB connection established.'))
+.catch((error) => console.error("MongoDB connection failed:", error.message))
+
+
   const port = configService.get('port')
   const test = await app.listen(port);
   console.log('\x1b[42m%s\x1b[0m',"http://localhost:" + port + "/api");

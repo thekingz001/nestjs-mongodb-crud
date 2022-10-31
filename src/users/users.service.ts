@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel  } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Users, UsersDocument } from 'src/schema/users.schema';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -40,18 +40,18 @@ export class UsersService {
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     // return `This action updates a #${id} user`;
-    // return this.usersModel.updateOne({_id: id},{$set: updateUserDto});
-    console.log(id , updateUserDto);
+    // return this.usersModel.updateOne({_id: new Types.ObjectId(id)},{$set: updateUserDto});
+    // console.log(id , updateUserDto);
     // const tsss = '{"name": "test"}';
     // const test = this.usersModel.updateOne({_id: id},{$set:updateUserDto});
     // console.log(test);
     
-    return this.usersModel.updateOne({_id: id},{$set: {"coin": 999}});
+    return this.usersModel.updateOne({_id: new Types.ObjectId(id)}, {$set:updateUserDto});
   }
 
   async remove(id: string) {
     // return `This action removes a #${id} user`;
-    return this.usersModel.remove({_id: id});
+    return this.usersModel.remove({_id: new Types.ObjectId(id)});
   }
 
   // private readonly users = [

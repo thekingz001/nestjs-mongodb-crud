@@ -2,12 +2,13 @@ import { Controller, Get, Headers, Post, Body, Patch, Param, Delete, UseGuards }
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import jwt_decode from "jwt-decode";
 import { BooksService } from 'src/books/books.service';
 import { UsersService } from 'src/users/users.service';
 
+@ApiTags('Buy')
 @Controller('order')
 export class OrderController {
   constructor(
@@ -35,18 +36,18 @@ export class OrderController {
     const newamount = book[0]['amount'] - createOrderDto.amount;
     const book_id = book[0]['_id'];
     const json_book = {
-      amount: newamount
+      "amount": newamount
     };
     // console.log(book_id + JSON.stringify(json_book));
-    // this.booksService.update(String(book[0]['_id']),json_book);
+    this.booksService.update(String(book_id),json_book);
     //หักเงิน User
     const newcoin = user['coin'] - total;
     const user_id = user['_id'];
     const json_user = {
-      'coin': newcoin
+      "coin": newcoin
     };
     // console.log(user_id + JSON.stringify(json_user));
-    this.usersService.update(String(user_id),json_user);
+    await this.usersService.update(String(user_id),json_user);
 
     const neworder = {
       order_name: user['username'],
@@ -56,7 +57,7 @@ export class OrderController {
       book_type: book[0]['book_type']
     }
     // console.log(neworder);
-    return "this.orderService.create(neworder)";
+    return this.orderService.create(neworder);
   }
 
   @Get()
@@ -66,21 +67,21 @@ export class OrderController {
     return this.orderService.findAll();
   }
 
-  @Get(':name')
+  @Get(':type')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   async findOne(@Param('name') name: string) {
     return this.orderService.findOne(name);
   }
 
-  @Patch(':id')
+  // @Patch(':id')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   async update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
     return this.orderService.update(id, updateOrderDto);
   }
 
-  @Delete(':id')
+  // @Delete(':id')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   async remove(@Param('id') id: string) {

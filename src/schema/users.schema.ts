@@ -7,6 +7,7 @@ export class Users {
     type: Types.ObjectId,
     unique: true,
     auto: true,
+    index: true,
     default: Types.ObjectId,
   })
   _id: string;

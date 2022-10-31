@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-
 export type BooksDocument = Books & Document;
 
 @Schema()
@@ -9,6 +8,7 @@ export class Books {
     type: Types.ObjectId,
     unique: true,
     auto: true,
+    index: true,
     default: Types.ObjectId,
   })
   _id: string;

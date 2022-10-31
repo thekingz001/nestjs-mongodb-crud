@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Books, BooksDocument } from 'src/schema/books.schema';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
@@ -26,12 +26,12 @@ export class BooksService {
 
   async update(id: string, updateBookDto: UpdateBookDto) {
     // return `This action updates a #${id} book`;
-    return this.booksModel.updateOne({_id: id},{$set:updateBookDto});
+    return this.booksModel.updateOne({_id: new Types.ObjectId(id)}, {$set:updateBookDto});
   }
 
   async remove(id: number) {
     // return `This action removes a #${id} book`;
-    return this.booksModel.remove({_id: id});
+    return this.booksModel.remove({_id: new Types.ObjectId(id)});
   }
 
 

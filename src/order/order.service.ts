@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { identity } from 'rxjs';
 import { BooksService } from 'src/books/books.service';
 import { Books, BooksDocument } from 'src/schema/books.schema';
@@ -25,15 +25,15 @@ export class OrderService {
 
   async findOne(id: string) {
     // return `This action returns a #${id} order`;
-    return this.ordersModel.find({_id: id});
+    return this.ordersModel.find({_id: new Types.ObjectId(id)});
   }
 
 
   async update(id: string, updateOrderDto: UpdateOrderDto) {
-    return this.ordersModel.updateOne({_id: id},{$set:updateOrderDto});
+    return this.ordersModel.updateOne({_id: new Types.ObjectId(id)},{$set:updateOrderDto});
   }
 
   async remove(id: string) {
-    return this.ordersModel.remove({_id: id});
+    return this.ordersModel.remove({_id: new Types.ObjectId(id)});
   }
 }
