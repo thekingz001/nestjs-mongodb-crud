@@ -53,7 +53,7 @@ export class CreateUserDto {
 
   @ApiProperty({
     type: String,
-    example: '',
+    example: 'user',
   })
   @IsString()  
   type: string;

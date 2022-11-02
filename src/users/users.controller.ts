@@ -3,7 +3,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import UserEntity from './entities/user.entity';
+import UserEntity from './entities/useradd.entity';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @ApiTags('Users')
@@ -26,6 +26,8 @@ export class UsersController {
   }
 
   @Get('getAll-users')
+  @ApiBearerAuth('defaultBearerAuth')
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({
     status: 200,
     description: 'Success',
@@ -36,6 +38,8 @@ export class UsersController {
   }
 
   @Get('getNew-users')
+  @ApiBearerAuth('defaultBearerAuth')
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({
     status: 200,
     description: 'Success',
@@ -46,6 +50,8 @@ export class UsersController {
   }
 
   @Get('getOne-users:name')
+  @ApiBearerAuth('defaultBearerAuth')
+  @UseGuards(JwtAuthGuard)
   @ApiResponse({
     status: 200,
     description: 'Success',

@@ -5,6 +5,7 @@ import { Users, UsersDocument } from 'src/schema/users.schema';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateUsercoinDto } from './dto/update-usercoin.dto';
 
 // var test_data = [
 //   {id:'1', name:'k1', type:'admin1'},
@@ -71,6 +72,10 @@ export class UsersService {
     // console.log(test);
     
     return this.usersModel.updateOne({_id: new Types.ObjectId(id)}, {$set:updateUserDto});
+  }
+
+  async updateusercoin(id: string, updateUsercoinDto: UpdateUsercoinDto) {
+    return this.usersModel.updateOne({_id: new Types.ObjectId(id)}, {$set:updateUsercoinDto});
   }
 
   async remove(id: string) {

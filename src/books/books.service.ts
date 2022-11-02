@@ -4,6 +4,7 @@ import { Model, Types } from 'mongoose';
 import { Books, BooksDocument } from 'src/schema/books.schema';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { UpdateBooksamountDto } from './dto/update-bookmount.dto';
 
 @Injectable()
 export class BooksService {
@@ -27,6 +28,11 @@ export class BooksService {
   async update(id: string, updateBookDto: UpdateBookDto) {
     // return `This action updates a #${id} book`;
     return this.booksModel.updateOne({_id: new Types.ObjectId(id)}, {$set:updateBookDto});
+  }
+  
+  async updatebooksamount(id: string, updateBooksamountDto: UpdateBooksamountDto) {
+    // return `This action updates a #${id} book`;
+    return this.booksModel.updateOne({_id: new Types.ObjectId(id)}, {$set:updateBooksamountDto});
   }
 
   async remove(id: number) {

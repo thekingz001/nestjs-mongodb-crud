@@ -7,9 +7,9 @@ import { BooksModule } from './books/books.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration';
-// import * as redisStore from 'cache-manager-redis-store';
-// import { APP_GUARD } from '@nestjs/core';
 import { OrderModule } from './order/order.module';
+// import { APP_GUARD } from '@nestjs/core';
+// import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 @Module({
   // imports: [MongooseModule.forRoot('mongodb://localhost/nestJS'), UsersModule, AuthModule],

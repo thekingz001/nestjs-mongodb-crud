@@ -1,9 +1,7 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNumber, IsString } from 'class-validator';
-import { CreateBookDto } from './create-book.dto';
+import { ApiPropertyOptional } from "@nestjs/swagger";
+import { IsNumber, IsString } from "class-validator";
 
-export class UpdateBookDto extends PartialType(CreateBookDto) {
+export default class BooksEntity {
     @ApiPropertyOptional({
         type: String,
         example: '',

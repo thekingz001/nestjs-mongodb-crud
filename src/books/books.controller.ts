@@ -2,8 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Put } fro
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import BooksEntity from './entities/bookadd.entity';
 
 @ApiTags('Books')
 @Controller('Books')
@@ -13,16 +14,25 @@ export class BooksController {
   @Post('Add-book')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
+  @ApiResponse({
+    status: 200,
+    description: 'Success',
+    type: BooksEntity
+  })
   create(@Body() createBookDto: CreateBookDto) {
     return this.booksService.create(createBookDto);
   }
 
   @Get('getAll-book')
+  @ApiBearerAuth('defaultBearerAuth')
+  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.booksService.findAll();
   }
 
   @Get('getOne-book:id')
+  @ApiBearerAuth('defaultBearerAuth')
+  @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: string) {
     return this.booksService.findOne(id);
   }

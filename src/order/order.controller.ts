@@ -39,7 +39,7 @@ export class OrderController {
       "amount": newamount
     };
     console.log(book_id + JSON.stringify(json_book));
-    this.booksService.update(String(book_id),json_book);
+    this.booksService.updatebooksamount(String(book_id),json_book);
     //หักเงิน User
     const newcoin = user['coin'] - total;
     const user_id = user['_id'];
@@ -47,7 +47,7 @@ export class OrderController {
       "coin": newcoin
     };
     console.log(user_id + JSON.stringify(json_user));
-    await this.usersService.update(String(user_id),json_user);
+    await this.usersService.updateusercoin(String(user_id),json_user);
 
     const neworder = {
       order_name: user['username'],
