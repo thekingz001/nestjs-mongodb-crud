@@ -35,6 +35,16 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @Get('getNew-users')
+  @ApiResponse({
+    status: 200,
+    description: 'Success',
+  })
+  @ApiOperation({ summary: '' })
+  findNew() {
+    return this.usersService.findNew();
+  }
+
   @Get('getOne-users:name')
   @ApiResponse({
     status: 200,
@@ -44,6 +54,7 @@ export class UsersController {
   findOne(@Param('name') id: string) {
     return this.usersService.findOne(id);
   }
+
   @Put('edit:id')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
@@ -54,6 +65,7 @@ export class UsersController {
     return this.usersService.update(id, updateUserDto);
     // return test;
   }
+  
   @Delete('delete:id')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)

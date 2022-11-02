@@ -3,7 +3,7 @@ import { Document, Types } from 'mongoose';
 
 export type OrdersDocument = Order & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Order {
   @Prop({
     type: Types.ObjectId,
@@ -32,6 +32,11 @@ export class Order {
   // price: {
   //   type: number,
   // };
+  @Prop({
+    type: String,
+  })
+  book_name: string
+  
   @Prop({
     type: String,
   })

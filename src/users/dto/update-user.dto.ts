@@ -3,12 +3,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { CreateUserDto } from './create-user.dto';
 export class UpdateUserDto extends PartialType(CreateUserDto) {
-    // @ApiProperty({
-    //     type: Number,
-    //     // example: '',
-    //   })
-    //   @IsNumber()  
-    //   coin: number;
+
 }
 // export class UpdateUserDto {
 //     // @ApiProperty({

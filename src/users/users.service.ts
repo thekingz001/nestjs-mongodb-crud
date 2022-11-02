@@ -26,17 +26,41 @@ export class UsersService {
     // return new this.usersModel.create(createdUser);
   }
 
-  async findAll() {
+  async findAll(): Promise<any> {
     // return `This action returns all users`;
-    return this.usersModel.find();
+    // return this.usersModel.find();
+    // const { page, perPage = 1000 } = pagination
+    return this.usersModel
+      .find()
+      .sort( { fristname: 1 } )
+      .skip( 1 > 0 ? ( ( 1 - 1 ) * 1000 ) : 0 )
+      .limit( 1000 );
   }
 
   async findOne(id: string) {
     // console.log(typeof id)
     // return `This action returns a #${id} user`;
-    return this.usersModel.find({ $or:[ {username: { $regex: '.*' + id + '.*' }}, {fristname: { $regex: '.*' + id + '.*' }} ]});
+    return this.usersModel.find({ $or:[ {username: { $regex: '.*' + id + '.*' }}, {fristname: { $regex: '.*' + id + '.*' }}, {lastname: { $regex: '.*' + id + '.*' }} ]});
   }
-  
+
+  async findNew() {
+    // console.log(typeof id)
+    // return `This action returns a #${id} user`;
+    // const today = new Date();
+    // const yyyy = today.getFullYear();
+    // const mm = today.getMonth() + 1; // Months start at 0!
+    // const dd = today.getDate();
+    // const formattedToday = dd + '/' + mm + '/' + yyyy;
+
+    const start = new Date().setHours(0, 0, 0, 0);
+    const end = new Date().setHours(23, 59, 59, 999);
+    return this.usersModel.find({ createdAt: 
+      {
+        $gte: start,
+        $lte: end
+      }
+    });
+  }  
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     // return `This action updates a #${id} user`;

@@ -38,7 +38,7 @@ export class OrderController {
     const json_book = {
       "amount": newamount
     };
-    // console.log(book_id + JSON.stringify(json_book));
+    console.log(book_id + JSON.stringify(json_book));
     this.booksService.update(String(book_id),json_book);
     //หักเงิน User
     const newcoin = user['coin'] - total;
@@ -46,7 +46,7 @@ export class OrderController {
     const json_user = {
       "coin": newcoin
     };
-    // console.log(user_id + JSON.stringify(json_user));
+    console.log(user_id + JSON.stringify(json_user));
     await this.usersService.update(String(user_id),json_user);
 
     const neworder = {
@@ -67,12 +67,21 @@ export class OrderController {
     return this.orderService.findAll();
   }
 
-  @Get('getOrderBy:type')
+  @Get('getOrdeby:book_type')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
-  async findOne(@Param('name') name: string) {
-    return this.orderService.findOne(name);
+  async findOne(@Param('book_type') type: string) {
+    console.log(type);
+    return this.orderService.findOne(type);
   }
+
+  // @Get('getOrderBy:type')
+  // @ApiBearerAuth('defaultBearerAuth')
+  // @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
+  // async findOne(@Param('type') name: string) {
+  //   return this.orderService.findOne(name);
+  // }
 
   // @Patch(':id')
   @ApiBearerAuth('defaultBearerAuth')

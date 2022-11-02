@@ -23,9 +23,11 @@ export class OrderService {
     return this.ordersModel.find();
   }
 
-  async findOne(id: string) {
+  async findOne(type: string) {
     // return `This action returns a #${id} order`;
-    return this.ordersModel.find({_id: new Types.ObjectId(id)});
+    // return this.ordersModel.find({_id: new Types.ObjectId(id)});
+    
+    return this.ordersModel.find({book_type: type});
   }
 
 

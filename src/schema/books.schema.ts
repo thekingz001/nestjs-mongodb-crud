@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 export type BooksDocument = Books & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Books {
   @Prop({
     type: Types.ObjectId,
@@ -20,8 +20,8 @@ export class Books {
   // };
   @Prop({
     type: String,
-    required: true,
-    unique: true,
+    // required: true,
+    // unique: true,
   })
   book_name: string
   // book_name: {

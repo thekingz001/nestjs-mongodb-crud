@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 export type UsersDocument = Users & Document;
-@Schema()
+@Schema({ timestamps: true })
 export class Users {
   @Prop({
     type: Types.ObjectId,
@@ -10,7 +10,7 @@ export class Users {
     index: true,
     default: Types.ObjectId,
   })
-  _id: string;
+  _id
   // _id: {
   //   index: true,
   //   unique: true,
@@ -21,7 +21,7 @@ export class Users {
     type: String,
     required: true,
   })
-  username: string;
+  username
   // username: {
   //   index: true,
   //   unique: true,
@@ -32,7 +32,7 @@ export class Users {
     type: String,
     required: true,
   })
-  password: string;
+  password
   // password: {
   //   required: true,
   //   type: string,
@@ -40,28 +40,28 @@ export class Users {
   @Prop({
     type: String,
   })
-  fristname: string;
+  fristname
   // fristname: {
   //   type: string,
   // };
   @Prop({
     type: String,
   })
-  lastname: string;
+  lastname
   // lastname: {
   //   type: string,
   // };
   @Prop({
     type: Number,
   })
-  age: number
+  age
   // age: {
   //   type: number,
   // };
   @Prop({
     type: Number,
   })
-  coin: number
+  coin
   // coin: {
   //   type: number,
   // };
@@ -69,7 +69,7 @@ export class Users {
     type: String,
     default: "user",
   })
-  type: string
+  type
   // type: {
   //   type: string,
   //   default: "user",
@@ -78,7 +78,7 @@ export class Users {
     type: String,
     default: "true",
   })
-  active: string
+  active
   // active: {
   //   type: string,
   //   default: "true",
