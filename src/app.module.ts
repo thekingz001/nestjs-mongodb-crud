@@ -5,20 +5,20 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { BooksModule } from './books/books.module';
 import { AuthModule } from './auth/auth.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import configuration from './config/configuration';
 import { OrderModule } from './order/order.module';
-// import { APP_GUARD } from '@nestjs/core';
-// import { JwtAuthGuard } from './auth/jwt-auth.guard';
+
+const ENV = process.env.NODE_ENV;
 
 @Module({
-  // imports: [MongooseModule.forRoot('mongodb://localhost/nestJS'), UsersModule, AuthModule],
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/nestJS'), 
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: '.env',
       load: [configuration],
     }),
+    MongooseModule.forRoot(`${process.env.MONGO_URL}`), 
     UsersModule, 
     BooksModule, 
     AuthModule,
@@ -27,10 +27,6 @@ import { OrderModule } from './order/order.module';
   controllers: [AppController],
   providers: [
     AppService,
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: JwtAuthGuard,
-    // },
   ],
 })
 export class AppModule {}

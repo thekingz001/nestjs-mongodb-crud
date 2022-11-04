@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards, Headers } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import UserEntity from './entities/useradd.entity';
+import UserEntity from './entities/create-user.entity';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @ApiTags('Users')
@@ -12,70 +12,57 @@ export class UsersController {
   constructor(
     private readonly usersService: UsersService
     ) {}
-  @Post('Add-users')
-  @ApiBearerAuth('defaultBearerAuth')
-  @UseGuards(JwtAuthGuard)
+
+  @Post('adduser')
   @ApiResponse({
     status: 200,
     description: 'Success',
     type: UserEntity,
   })
-  @ApiOperation({ summary: '' })
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  createuser(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.createuser(createUserDto);
   }
 
-  @Get('getAll-users')
+  @Get('getalluser')
+  @ApiBearerAuth('defaultBearerAuth')
+  @UseGuards(JwtAuthGuard)
+  findalluser() {
+    return this.usersService.findalluser();
+  }
+
+  @Get('getnewuser')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   @ApiResponse({
     status: 200,
     description: 'Success',
   })
-  @ApiOperation({ summary: '' })
-  findAll() {
-    return this.usersService.findAll();
+  findnewuser() {
+    return this.usersService.findnewuser();
   }
 
-  @Get('getNew-users')
+  @Get('getoneuser:name')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   @ApiResponse({
     status: 200,
     description: 'Success',
   })
-  @ApiOperation({ summary: '' })
-  findNew() {
-    return this.usersService.findNew();
-  }
-
-  @Get('getOne-users:name')
-  @ApiBearerAuth('defaultBearerAuth')
-  @UseGuards(JwtAuthGuard)
-  @ApiResponse({
-    status: 200,
-    description: 'Success',
-  })
-  @ApiOperation({ summary: '' })
-  findOne(@Param('name') id: string) {
-    return this.usersService.findOne(id);
+  findoneuser(@Param('name') name: string) {
+    return this.usersService.findoneuser(name);
   }
 
   @Put('edit:id')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    // const test = this.usersService.update(+id, updateUserDto);
-    console.log(updateUserDto);
-    // this.usersService.update(+id, updateUserDto);
-    return this.usersService.update(id, updateUserDto);
-    // return test;
+  updateuser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.updateuser(id, updateUserDto);
   }
   
   @Delete('delete:id')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
+    return this.usersService.removeuser(id);
   }
 }

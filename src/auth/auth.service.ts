@@ -12,15 +12,11 @@ export class AuthService {
     ) {}
 
     async validateUser(username: string, password: string): Promise<any> {
-      const user = await this.usersService.findOneauth(username);
+      const user = await this.usersService.findonegetuser(username);
       const value = Number(await this.cacheManager.get(`${ user.username}-auth-fail`));
-      // console.log(value);
       if(user && await user.password === password && user.active === 'true' && value <= 2) {
           const { password, ...result } = user;
           const myObjectId = result._doc._id;
-        //   const re = JSON.parse(result);
-          // console.log(result._doc);
-          // console.log(JSON.stringify(myObjectId));
           this.cacheManager.del(`${ user.username}-auth-fail`);
           return user
       }else{

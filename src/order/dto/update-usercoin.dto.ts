@@ -1,7 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNumber, IsOptional, IsString } from 'class-validator';
-import { CreateUserDto } from './create-user.dto';
+import { CreateUserDto } from '../../users/dto/create-user.dto';
 export class UpdateUsercoinDto extends PartialType(CreateUserDto) {
 
 }

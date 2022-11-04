@@ -3,8 +3,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { identity } from 'rxjs';
 import { BooksService } from 'src/books/books.service';
-import { Books, BooksDocument } from 'src/schema/books.schema';
-import { Order, OrdersDocument } from 'src/schema/order.schema';
+import { Books, BooksDocument } from 'src/books/schema/books.schema';
+import { Order, OrdersDocument } from 'src/order/schema/order.schema';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 
@@ -13,20 +13,15 @@ export class OrderService {
   constructor(
     @InjectModel(Order.name) private ordersModel: Model<OrdersDocument>
   ) {}
-  async create(createOrderDto: CreateOrderDto): Promise<Order> {
-    // return 'This action adds a new order';
+  async createorder(createOrderDto: CreateOrderDto): Promise<Order> {
     return this.ordersModel.create(createOrderDto);
   }
 
-  async findAll() {
-    // return `This action returns all order`;
+  async findallorder() {
     return this.ordersModel.find();
   }
 
-  async findOne(type: string) {
-    // return `This action returns a #${id} order`;
-    // return this.ordersModel.find({_id: new Types.ObjectId(id)});
-    
+  async findoerderbytype(type: string) {    
     return this.ordersModel.find({book_type: type});
   }
 
@@ -35,7 +30,7 @@ export class OrderService {
     return this.ordersModel.updateOne({_id: new Types.ObjectId(id)},{$set:updateOrderDto});
   }
 
-  async remove(id: string) {
+  async removeorder(id: string) {
     return this.ordersModel.remove({_id: new Types.ObjectId(id)});
   }
 }

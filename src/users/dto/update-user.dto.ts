@@ -7,14 +7,14 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
     type: String,
     example: '',
   })
-  @IsOptional()
+  @IsString()
   username: string;
 
   @ApiPropertyOptional({
     type: String,
     example: '',
   })
-  @IsOptional()
+  @IsString()
   password: string;
 
   @ApiProperty({
@@ -33,14 +33,12 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
 
   @ApiProperty({
     type: Number,
-    // example: '',
   })
   @IsNumber()  
   age: number;
   
   @ApiProperty({
     type: Number,
-    // example: '',
   })
   @IsNumber()  
   coin: number;
@@ -59,60 +57,3 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   @IsString()  
   active: string;
 }
-// export class UpdateUserDto {
-//     // @ApiProperty({
-//     //   type: String,
-//     //   example: '',
-//     // })
-//     // @IsString()
-//     // _id: string;
-  
-//     @ApiPropertyOptional({
-//       type: String,
-//       example: '',
-//     })
-//     @IsOptional()
-//     username: string;
-  
-//     @ApiPropertyOptional({
-//       type: String,
-//       example: '',
-//     })
-//     @IsOptional()
-//     password: string;
-  
-//     @ApiProperty({
-//       type: String,
-//       example: '',
-//     })
-//     @IsString()
-//     fristname: string;
-  
-//     @ApiProperty({
-//       type: String,
-//       example: '',
-//     })
-//     @IsString()
-//     lastname: string;
-  
-//     @ApiProperty({
-//       type: Number,
-//       // example: '',
-//     })
-//     @IsNumber()  
-//     age: number;
-    
-//     @ApiProperty({
-//       type: Number,
-//       // example: '',
-//     })
-//     @IsNumber()  
-//     coin: number;
-  
-//     @ApiProperty({
-//       type: String,
-//       example: '',
-//     })
-//     @IsString()  
-//     type: string;
-// }

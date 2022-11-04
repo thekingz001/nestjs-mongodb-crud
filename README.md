@@ -2,6 +2,12 @@
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
+## Stack
+- NestJS [Link to Doc](https://docs.nestjs.com)
+- MongoDB [Link to Doc](https://www.mongodb.com/docs/)
+- Docker (Optional) [Link to Doc](https://docs.docker.com)
+- Golang (Optional) [Link to Doc](https://go.dev/doc/)
+- Microservices (Optional) [Link to Doc](https://microservices.io/patterns/index.html)
 <p align="center">
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
