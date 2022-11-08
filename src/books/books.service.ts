@@ -14,15 +14,15 @@ export class BooksService {
     return createdBooks;
   }
 
-  async findAll() {
-    return this.booksModel.find().lean();
+  async findallbooks() {
+    return this.booksModel.find().sort({amount:1,price:1}).lean();
   }
 
-  async findOne(id: string) {
-    return this.booksModel.find({book_name: { $regex: '.*' + id + '.*' }}).sort({amount:1,price:1}).lean();
+  async findonebookbyid(id: string) {
+    return this.booksModel.find({ bookname: { id } }).lean();
   }
 
-  async update(id: string, updateBookDto: UpdateBookDto)  {
+  async updateonebook(id: string, updateBookDto: UpdateBookDto)  {
     return this.booksModel.updateOne({_id: new Types.ObjectId(id)}, {$set:updateBookDto});
   }
   
@@ -30,11 +30,11 @@ export class BooksService {
     return this.booksModel.updateOne({_id: new Types.ObjectId(id)}, {$set:updateBooksamountDto});
   }
 
-  async remove(id: number) {
+  async removebook(id: number) {
     return this.booksModel.remove({_id: new Types.ObjectId(id)});
   }
 
-  async findBook(name: string) {
+  async findonebookbyname(name: string) {
     return this.booksModel.find({bookname: name}).lean();
   }
 

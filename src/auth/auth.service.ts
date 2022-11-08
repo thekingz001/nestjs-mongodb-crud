@@ -5,6 +5,7 @@ import { Cache } from 'cache-manager'
 import { compearPassword } from './bcrypt/bcrypt';
 import { ValidateUserDto } from './dto/validate-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
+import validateUserEntity from './entity/validate-user.entity';
 
 @Injectable()
 export class AuthService {
@@ -35,7 +36,7 @@ export class AuthService {
       }
     }
 
-    async login(user: any) {      
+    async login(user: validateUserEntity) {
         const payload = { username: user.username, sub: JSON.stringify(user._id) };
         return {
           access_token: this.jwtService.sign(payload),

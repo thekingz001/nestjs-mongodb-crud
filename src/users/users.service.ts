@@ -7,6 +7,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateUsercoinDto } from '../order/dto/update-usercoin.dto';
 import { banUserEntity } from './entities/ban-user.entity';
 import { BanUserDto } from './dto/ban-user.dto';
+import { updateUserEntity } from './entities/update-user.entity';
 
 @Injectable()
 export class UsersService {
@@ -43,7 +44,7 @@ export class UsersService {
     return this.usersModel.updateOne({_id: new Types.ObjectId(id)}, {$set: banUserDto}).lean();
   }
 
-  async updateusercoin(id: string, updateUsercoinDto: UpdateUsercoinDto) {
+  async updateusercoin(id: string, updateUsercoinDto: UpdateUsercoinDto): Promise<updateUserEntity>  {
     return this.usersModel.updateOne({_id: new Types.ObjectId(id)}, {$set: updateUsercoinDto}).lean();
   }
 
@@ -51,7 +52,7 @@ export class UsersService {
     return this.usersModel.remove({_id: new Types.ObjectId(id)}).lean();
   }
 
-  async findonegetuser(username: string): Promise<Users> {
+  async findonegetuser(username: string) {
     return this.usersModel.findOne({ username }).lean();
   }
 }

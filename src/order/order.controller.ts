@@ -1,14 +1,10 @@
-import { Controller, Get, Headers, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import jwt_decode from "jwt-decode";
 import { BooksService } from 'src/books/books.service';
 import { UsersService } from 'src/users/users.service';
-import { User } from 'src/users/user.decorator';
-import UserEntity from 'src/users/entities/create-user.entity';
 
 @ApiTags('Buy')
 @Controller('order')
@@ -23,12 +19,13 @@ export class OrderController {
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   async create(@Req() req: any, @Body() createOrderDto: CreateOrderDto) {
+    //ประกาศ Booksarray
     var booksarray = [];
     //หายอดทั้งหมด
     var total = 0;
     for (var i= 0; i< createOrderDto.books.length; i++){
       //ดึง Book
-      const book = await this.booksService.findBook(createOrderDto.books[i]['bookname']);
+      const book = await this.booksService.findonebookbyname(createOrderDto.books[i]['bookname']);
       //รวมยอด
       total = total + (book[0]['price'] * createOrderDto.books[i]['amout']);
       //หักหนังสือ
@@ -50,14 +47,14 @@ export class OrderController {
     }
     //ดึง User
     const user = await this.usersService.findoneuser(req.user.username);
-    //หักเงิน User
-    const newcoin = Number(user['coin'] - total);
-    const user_id = user['_id'];
+    //หัก coin User
+    const newcoin = user['coin'] - total;
+    const user_id = String(user['_id']);
     const json_user = {
       coin: newcoin
     };
     await this.usersService.updateusercoin(user_id, json_user);
-
+    //สร้าง query neworder
     const neworder = {
       customername: user['username'],
       books: booksarray,
@@ -80,7 +77,7 @@ export class OrderController {
     return this.orderService.findoerderbytype(type);
   }
 
-  @Delete('deleteorder:id')
+  @Delete('deleteorderby:id')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   async remove(@Param('id') id: string) {

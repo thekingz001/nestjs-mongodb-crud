@@ -4,7 +4,8 @@ import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import BooksEntity from './entities/bookadd.entity';
+import createBooksEntity from './entities/create-book.entity';
+import updateBooksEntity from './entities/update-book.entity';
 
 @ApiTags('Books')
 @Controller('Books')
@@ -17,7 +18,7 @@ export class BooksController {
   @ApiResponse({
     status: 200,
     description: 'Success',
-    type: BooksEntity
+    type: createBooksEntity
   })
   create(@Body() createBookDto: CreateBookDto) {
     //แปลงวันที่ จาก xxxx-xx-xx เป็น ISODATE
@@ -30,27 +31,32 @@ export class BooksController {
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   findAll() {
-    return this.booksService.findAll();
+    return this.booksService.findallbooks();
   }
 
   @Get('getonebookby:id')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: string) {
-    return this.booksService.findOne(id);
+    return this.booksService.findonebookbyid(id);
   }
 
   @Put('editbookby:id')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
+  @ApiResponse({
+    status: 200,
+    description: 'Success',
+    type: updateBooksEntity
+  })
   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
-    return this.booksService.update(id, updateBookDto);
+    return this.booksService.updateonebook(id, updateBookDto);
   }
 
   @Delete('deletebookby:id')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
-    return this.booksService.remove(+id);
+    return this.booksService.removebook(+id);
   }
 }

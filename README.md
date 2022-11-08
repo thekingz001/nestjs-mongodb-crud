@@ -53,13 +53,8 @@ http://localhost:5555/api
 ## ออกแบบระบบร้านขายหนังสือ โดยมี Feature ดังนี้
 ```bash
 [✔️] เพิ่ม/ลบ/แก้ไขข้อมูลสมาชิก
-เพิ่ม POST URL: http://localhost:5555/users
-ลบ DLETE URL: http://localhost:5555/users/{_id}
-แก้ไข PUT URL: http://localhost:5555/users/{_id}
 
 [✔️] แสดงรายการสมาชิก (สามารถ filter จาก ชื่อผู้ใช้งาน, ชื่อ-นามสกุล)
-หาทั้งหมด GET URL: http://localhost:5555/users
-หาจาก username หรือ ชื่อ GET URL: http://localhost:5555/users/{username or name}
 
 [✔️] สามารถระงับการใช้งานของสมาชิกได้
 
@@ -74,13 +69,8 @@ http://localhost:5555/api
 [✔️] รายงานการขายหนังสือที่ถูกขายในแต่หมวดหมู่, หมวดหมู่ละกี่เล่ม มีเรื่องออะไรบ้าง ราคาเท่าไหร่
 
 [✔️] เพิ่ม/ลบ/แก้ไขข้อมูลหนังสือ (default: จำนวนหนังสือที่เพิ่มใหม่ 10 เล่ม)
-เพิ่ม POST URL: http://localhost:5555/books
-ลบ DLETE URL: http://localhost:5555/books/{_id}
-แก้ไข PUT URL: http://localhost:5555/books/{_id}
 
 [✔️] แสดงรายการหนังสือ (สามารถ filter จาก ชื่อหนังสือ, เรียงลำดับจากจำนวนหนังสือ, ราคา)
-หาทั้งหมด GET URL: http://localhost:5555/books
-หาจากชื่อหนังสือ GET URL: http://localhost:5555/books/{bookname}
 
 [✔️] สมาชิกที่ถูกระงับจะไม่สามารถซื้อหนังสือ
 ```

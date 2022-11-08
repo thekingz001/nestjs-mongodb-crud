@@ -15,7 +15,7 @@ import { IsDateString, IsNumber, IsString } from "class-validator";
         return [year, month, day].join('-');
     }
 
-export default class BooksEntity {
+export default class updateBooksEntity {
     @ApiPropertyOptional({
         type: String,
         example: '',
