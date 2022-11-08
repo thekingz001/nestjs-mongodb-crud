@@ -1,7 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import { IsNumber, IsString } from "class-validator";
-
-export default class UserEntity {  
+export default class createUserEntity {  
     @ApiProperty({
       type: String,
       example: '',

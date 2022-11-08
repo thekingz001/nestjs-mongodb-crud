@@ -2,6 +2,9 @@ import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 import { Cache } from 'cache-manager'
+import { compearPassword } from './bcrypt/bcrypt';
+import { ValidateUserDto } from './dto/validate-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -11,30 +14,29 @@ export class AuthService {
       private jwtService: JwtService
     ) {}
 
-    async validateUser(username: string, password: string): Promise<any> {
+    async validateUser(username: string, password: string) {
       const user = await this.usersService.findonegetuser(username);
-      const value = Number(await this.cacheManager.get(`${ user.username}-auth-fail`));
-      if(user && await user.password === password && user.active === 'true' && value <= 2) {
-          const { password, ...result } = user;
-          const myObjectId = result._doc._id;
+      const value = Number(await this.cacheManager.get(`${ user.username}-auth-fail`));      
+      if(user && user.active === 'true' && value <= 2) {
+        const matchedUser = compearPassword(password, user.password)
+        if (matchedUser) {
           this.cacheManager.del(`${ user.username}-auth-fail`);
-          return user
-      }else{
-        if (!value) {
-          await this.cacheManager.set(`${ user.username}-auth-fail`,1, { ttl: 60 * 2 });
+          return user;
         }
         else{
-          await this.cacheManager.set(`${ user.username}-auth-fail`,value+1, { ttl: 30 });
+          if (!value) {
+            await this.cacheManager.set(`${ user.username}-auth-fail`,1, { ttl: 120 });
+          }
+          else{
+            await this.cacheManager.set(`${ user.username}-auth-fail`,value+1, { ttl: 30 });
+          }
+          return null;
         }
-        // console.log("LoginFail");
-        return null
       }
-
     }
 
     async login(user: any) {      
         const payload = { username: user.username, sub: JSON.stringify(user._id) };
-        // console.log(payload);
         return {
           access_token: this.jwtService.sign(payload),
         };

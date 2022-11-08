@@ -1,6 +1,13 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateBookDto } from './create-book.dto';
+import { ApiPropertyOptional } from "@nestjs/swagger";
+import { IsNumber } from "class-validator";
 
-export class UpdateBooksamountDto extends PartialType(CreateBookDto) {
+export class UpdateBooksamountDto {
 
+    @ApiPropertyOptional({
+        type: Number,
+        default: 10
+    })
+    @IsNumber()
+    amount: number;
+    
 }

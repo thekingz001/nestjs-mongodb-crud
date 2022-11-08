@@ -6,25 +6,25 @@ import { LocalStrategy } from './local.strategy';
 import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import * as redisStore from 'cache-manager-redis-store'
+import configuration from 'src/config/configuration';
 
 @Module({
   imports: [
     UsersModule, 
     PassportModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
+      load: [configuration],
+    }),
     JwtModule.register({
-      secret: `${process.env.MONGO_URL}`,
+      secret: `${process.env.SECRETKEY}`,
       signOptions: { expiresIn: '1d' },
     }),
-    CacheModule.registerAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) =>
-        ({
-          store: redisStore,
-          port: configService.get('redis.port'),
-        } as any),
-      inject: [ConfigService],
+    CacheModule.register({
+      store: redisStore,
     }),
 ],
   providers: [

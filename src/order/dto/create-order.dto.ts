@@ -1,19 +1,22 @@
-import { ApiPropertyOptional } from "@nestjs/swagger";
-import { IsArray, IsNumber, IsOptional, IsString } from "class-validator";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { IsArray, IsNumber, IsOptional } from "class-validator";
 
 export class CreateOrderDto {
 
     @ApiPropertyOptional({
         type: [String],
-        example: '',
+        example: [
+            {
+                bookname: "book1",
+                amout: 1
+            }, 
+            {
+                bookname: "book2",
+                amout: 1
+            }
+        ],
     })
+    @IsOptional()
     @IsArray()
     books: string[];
-
-    @ApiPropertyOptional({
-        type: Number,
-        default: 1
-    })
-    @IsNumber()
-    amount: number;
 }

@@ -6,6 +6,7 @@ export class Users {
   @Prop({
     type: String,
     required: true,
+    unique: true,
   })
   username: string;
   

@@ -7,6 +7,8 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import jwt_decode from "jwt-decode";
 import { BooksService } from 'src/books/books.service';
 import { UsersService } from 'src/users/users.service';
+import { User } from 'src/users/user.decorator';
+import UserEntity from 'src/users/entities/create-user.entity';
 
 @ApiTags('Buy')
 @Controller('order')
@@ -18,66 +20,67 @@ export class OrderController {
     ) {}
 
   @Post()
-  // @ApiBearerAuth('defaultBearerAuth')
-  // @UseGuards(JwtAuthGuard)
-  async create(@Req() request: any, @Body() createOrderDto: CreateOrderDto) {
-    console.log(request);
-    // //ดึง Headers 
-    // const userAgent = headers;
-    // //ถอดรหัส Token
-    // const decodedHeader = jwt_decode(userAgent.authorization.replace('Bearer ',''), { header: true });
-    // const decoded = jwt_decode(userAgent.authorization.replace('Bearer ',''));
-    // //ดึงหนังสือ
-    // const book = await this.booksService.findBook(createOrderDto.book_name);
-    // //ดึง User
-    // const user = await this.usersService.findoneuser(decoded['username']);
-    // //หายอดทั้งหมด
-    // const total = book[0]['price'] * Number(createOrderDto.amount);
-    // //หักหนังสือ
-    // const newamount = book[0]['amount'] - createOrderDto.amount;
-    // const book_id = book[0]['_id'];
-    // const json_book = {
-    //   "amount": newamount
-    // };
-    // console.log(book_id + JSON.stringify(json_book));
-    // this.booksService.updatebooksamount(String(book_id),json_book);
-    // //หักเงิน User
-    // const newcoin = user['coin'] - total;
-    // const user_id = user['_id'];
-    // const json_user = {
-    //   "coin": newcoin
-    // };
-    // console.log(user_id + JSON.stringify(json_user));
-    // await this.usersService.updateusercoin(String(user_id),json_user);
+  @ApiBearerAuth('defaultBearerAuth')
+  @UseGuards(JwtAuthGuard)
+  async create(@Req() req: any, @Body() createOrderDto: CreateOrderDto) {
+    var booksarray = [];
+    //หายอดทั้งหมด
+    var total = 0;
+    for (var i= 0; i< createOrderDto.books.length; i++){
+      //ดึง Book
+      const book = await this.booksService.findBook(createOrderDto.books[i]['bookname']);
+      //รวมยอด
+      total = total + (book[0]['price'] * createOrderDto.books[i]['amout']);
+      //หักหนังสือ
+      const newamount = book[0]['amount'] - createOrderDto.books[i]['amout'];
+      const json_book = {
+        "amount": newamount
+      };
+      this.booksService.updatebooksamount(String(book[0]['_id']),json_book);
+      //สร้าง Booksarray
+      booksarray.push(
+        {
+          bookname: book[0]['bookname'],
+          price: book[0]['price'],
+          type: book[0]['booktype'],
+          amout: createOrderDto.books[i]['amout'],
+          booktotal: book[0]['price'] * createOrderDto.books[i]['amout'],
+        }
+      )
+    }
+    //ดึง User
+    const user = await this.usersService.findoneuser(req.user.username);
+    //หักเงิน User
+    const newcoin = Number(user['coin'] - total);
+    const user_id = user['_id'];
+    const json_user = {
+      coin: newcoin
+    };
+    await this.usersService.updateusercoin(user_id, json_user);
 
-    // const neworder = {
-    //   order_name: user['username'],
-    //   book_name: book[0]['book_name'],
-    //   price: total,
-    //   amount: createOrderDto.amount,
-    //   book_type: book[0]['book_type']
-    // }
-    // // console.log(neworder);
-    // return this.orderService.createorder(neworder);
-    return "test";
+    const neworder = {
+      customername: user['username'],
+      books: booksarray,
+      price: total,
+    }
+    return this.orderService.createorder(neworder);
   }
 
-  @Get('getAll-order')
+  @Get('getallorder')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   async findAll() {
     return this.orderService.findallorder();
   }
 
-  @Get('getOrdeby:type')
+  @Get('getorderby:type')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   async findOne(@Param('type') type: string) {
-    console.log(type);
     return this.orderService.findoerderbytype(type);
   }
 
-  @Delete(':id')
+  @Delete('deleteorder:id')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   async remove(@Param('id') id: string) {

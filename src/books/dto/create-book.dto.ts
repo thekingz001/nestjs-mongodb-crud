@@ -1,5 +1,19 @@
 import { ApiPropertyOptional } from "@nestjs/swagger";
-import { IsNumber, IsOptional, IsString } from "class-validator";
+import { IsDate, IsDateString, IsNumber, IsString } from "class-validator";
+
+function formatDate(date) {
+    var datenow = new Date(date),
+        month = '' + (datenow.getMonth() + 1),
+        day = '' + datenow.getDate(),
+        year = datenow.getFullYear();
+  
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+  
+    return [year, month, day].join('-');
+  }
 
 export class CreateBookDto {
 
@@ -8,11 +22,10 @@ export class CreateBookDto {
         example: '',
     })
     @IsString()
-    book_name: string;
+    bookname: string;
 
     @ApiPropertyOptional({
         type: Number,
-        // example: '',
     })
     @IsNumber()
     price: number;
@@ -22,13 +35,19 @@ export class CreateBookDto {
         example: '',
     })
     @IsString()
-    book_type: string;
+    booktype: string;
 
     @ApiPropertyOptional({
         type: Number,
-        // example: '',
         default: 10
     })
     @IsNumber()
     amount: number;
+        
+    @ApiPropertyOptional({
+        type: String,
+        example: formatDate(Date()),
+    })
+    @IsDateString()
+    adddate: Date;
 }

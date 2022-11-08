@@ -1,19 +1,16 @@
-import { PartialType } from '@nestjs/mapped-types';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNumber, IsString } from 'class-validator';
-import { CreateBookDto } from './create-book.dto';
 
-export class UpdateBookDto extends PartialType(CreateBookDto) {
+export class UpdateBookDto{
     @ApiPropertyOptional({
         type: String,
         example: '',
     })
     @IsString()
-    book_name: string;
+    bookname: string;
 
     @ApiPropertyOptional({
         type: Number,
-        // example: '',
     })
     @IsNumber()
     price: number;
@@ -23,13 +20,19 @@ export class UpdateBookDto extends PartialType(CreateBookDto) {
         example: '',
     })
     @IsString()
-    book_type: string;
+    booktype: string;
 
     @ApiPropertyOptional({
         type: Number,
-        // example: '',
         default: 10
     })
     @IsNumber()
     amount: number;
+    
+    @ApiPropertyOptional({
+        type: Date,
+        example: '',
+    })
+    @IsString()
+    addate: Date;
 }

@@ -10,45 +10,45 @@ import { UpdateBooksamountDto } from './dto/update-bookmount.dto';
 export class BooksService {
   constructor(@InjectModel(Books.name) private booksModel: Model<BooksDocument>) {}
   async create(createBooksDto: CreateBookDto): Promise<Books> {
-    // return 'This action adds a new book';
     const createdBooks = await this.booksModel.create(createBooksDto);
     return createdBooks;
   }
 
   async findAll() {
-    // return `This action returns all books`;
-    return this.booksModel.find();
+    return this.booksModel.find().lean();
   }
 
   async findOne(id: string) {
-    // return `This action returns a #${id} book`;
-    return this.booksModel.find({book_name: { $regex: '.*' + id + '.*' }}).sort({amount:1,price:1});
+    return this.booksModel.find({book_name: { $regex: '.*' + id + '.*' }}).sort({amount:1,price:1}).lean();
   }
 
-  async update(id: string, updateBookDto: UpdateBookDto) {
-    // return `This action updates a #${id} book`;
+  async update(id: string, updateBookDto: UpdateBookDto)  {
     return this.booksModel.updateOne({_id: new Types.ObjectId(id)}, {$set:updateBookDto});
   }
   
   async updatebooksamount(id: string, updateBooksamountDto: UpdateBooksamountDto) {
-    // return `This action updates a #${id} book`;
     return this.booksModel.updateOne({_id: new Types.ObjectId(id)}, {$set:updateBooksamountDto});
   }
 
   async remove(id: number) {
-    // return `This action removes a #${id} book`;
     return this.booksModel.remove({_id: new Types.ObjectId(id)});
   }
 
-
-  // async findBook(name: string) {
-  //   const  book = this.booksModel.find({name});
-  //   console.log(book);
-  //   return book;
-  // }
-
   async findBook(name: string) {
-    // return `This action returns a #${id} book`;
-    return this.booksModel.find({book_name: name});
+    return this.booksModel.find({bookname: name}).lean();
+  }
+
+  async formatDate(date) {
+    var datenow = new Date(date),
+        month = '' + (datenow.getMonth() + 1),
+        day = '' + datenow.getDate(),
+        year = datenow.getFullYear();
+  
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+  
+    return [year, month, day].join('-');
   }
 }

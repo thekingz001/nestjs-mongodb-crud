@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
@@ -9,9 +9,9 @@ import BooksEntity from './entities/bookadd.entity';
 @ApiTags('Books')
 @Controller('Books')
 export class BooksController {
-  constructor(private readonly booksService: BooksService) {}
+  constructor(private booksService: BooksService) {}
 
-  @Post('Add-book')
+  @Post('addbook')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   @ApiResponse({
@@ -20,31 +20,34 @@ export class BooksController {
     type: BooksEntity
   })
   create(@Body() createBookDto: CreateBookDto) {
-    return this.booksService.create(createBookDto);
+    //แปลงวันที่ จาก xxxx-xx-xx เป็น ISODATE
+    const adddate = new Date(createBookDto.adddate);
+    const newbook = { ...createBookDto, adddate };
+    return this.booksService.create(newbook);
   }
 
-  @Get('getAll-book')
+  @Get('getallbook')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   findAll() {
     return this.booksService.findAll();
   }
 
-  @Get('getOne-book:id')
+  @Get('getonebookby:id')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: string) {
     return this.booksService.findOne(id);
   }
 
-  @Put('edit:id')
+  @Put('editbookby:id')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
     return this.booksService.update(id, updateBookDto);
   }
 
-  @Delete('dlete:id')
+  @Delete('deletebookby:id')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {

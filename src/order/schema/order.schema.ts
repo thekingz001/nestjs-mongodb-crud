@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import * as mongoose from 'mongoose';
+import { Document } from 'mongoose';
 
 export type OrdersDocument = Order & Document;
 
@@ -16,9 +17,15 @@ export class Order {
   price: number;
 
   @Prop({
-    type: [String],
+    type: [{
+      bookname: {type: String}, 
+      price: {type: Number}, 
+      type: {type: String}, 
+      amout: {type: Number},
+      booktotal: {type: Number},
+    }],
   })
-  books: string[];
+  books: { bookname: string; price: number; type: string; amout: number; booktotal: number; }[];
 
 }
 

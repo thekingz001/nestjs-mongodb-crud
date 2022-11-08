@@ -5,16 +5,18 @@ import { Users, UsersDocument } from 'src/users/schema/users.schema';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateUsercoinDto } from '../order/dto/update-usercoin.dto';
+import { banUserEntity } from './entities/ban-user.entity';
+import { BanUserDto } from './dto/ban-user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(Users.name) private usersModel: Model<UsersDocument>) {}
 
   async createuser(createUserDto: CreateUserDto): Promise<Users> {
-    return this.usersModel.create(createUserDto);;
+    return this.usersModel.create(createUserDto);
   }
 
-  async findalluser(): Promise<any> {
+  async findalluser(): Promise<Users> {
     return this.usersModel.find().lean();
   }
 
@@ -33,8 +35,12 @@ export class UsersService {
     }).lean();
   }  
 
-  async updateuser(id: string, updateUserDto: UpdateUserDto) {
+  async updateuser(id: string, updateUserDto: UpdateUserDto): Promise<Users> {
     return this.usersModel.updateOne({_id: new Types.ObjectId(id)}, {$set: updateUserDto}).lean();
+  }
+
+  async banuser(id: string, banUserDto: BanUserDto): Promise<banUserEntity> {
+    return this.usersModel.updateOne({_id: new Types.ObjectId(id)}, {$set: banUserDto}).lean();
   }
 
   async updateusercoin(id: string, updateUsercoinDto: UpdateUsercoinDto) {
@@ -45,7 +51,7 @@ export class UsersService {
     return this.usersModel.remove({_id: new Types.ObjectId(id)}).lean();
   }
 
-  async findonegetuser(username: string): Promise<any | undefined> {
+  async findonegetuser(username: string): Promise<Users> {
     return this.usersModel.findOne({ username }).lean();
   }
 }
