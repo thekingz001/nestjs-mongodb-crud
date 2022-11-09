@@ -11,10 +11,8 @@ async function bootstrap() {
   const configService = app.get(ConfigService)
   app.useGlobalPipes(new ValidationPipe());
 
-  // Your code
 const options = new DocumentBuilder()
 .setTitle('App ByKanSaz')
-// .setSchemes('https')
 .setDescription('My App API documentation ByKanSaz')
 .setVersion('Alpha')
 .addBearerAuth(undefined, 'defaultBearerAuth')
@@ -25,7 +23,7 @@ SwaggerModule.setup('api', app, document, {
 customSiteTitle: 'My App API documentation ByKanSaz',
 })
   const port = configService.get('PORT');
-  const test = await app.listen(port);
+  app.listen(port);
   console.log('\x1b[42m%s\x1b[0m',"http://localhost:" + port + "/api");
   
 }

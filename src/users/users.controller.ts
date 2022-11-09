@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards, BadRequestException } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -24,6 +24,9 @@ export class UsersController {
     type: createUserEntity,
   })
   createuser(@Body() createUserDto: CreateUserDto) {
+    if ( createUserDto.age == 0) {
+      throw new BadRequestException('Amout not 0')
+    }
     const password = encodePassword(createUserDto.password);
     const newUser = { ...createUserDto, password };
     return this.usersService.createuser(newUser);

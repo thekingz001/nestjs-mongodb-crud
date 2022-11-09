@@ -1,10 +1,13 @@
-import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { IsArray, IsNumber, IsOptional } from "class-validator";
+import { ApiPropertyOptional } from "@nestjs/swagger";
+import { IsArray, IsOptional } from "class-validator";
 
-export class CreateOrderDto {
+export class  createOrderEntity {
 
     @ApiPropertyOptional({
-        type: String,
+        type: [{
+            bookname:{type:String},
+            amout:{type:Number},
+        }],
         example: [
             {
                 bookname: "book1",

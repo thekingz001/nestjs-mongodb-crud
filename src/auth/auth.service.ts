@@ -1,4 +1,4 @@
-import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 import { Cache } from 'cache-manager'
@@ -17,7 +17,10 @@ export class AuthService {
 
     async validateUser(username: string, password: string) {
       const user = await this.usersService.findonegetuser(username);
-      const value = Number(await this.cacheManager.get(`${ user.username}-auth-fail`));      
+      const value = Number(await this.cacheManager.get(`${ user.username}-auth-fail`));
+      if ( user['active'] !== "true") {
+        throw new BadRequestException('You are banned')
+      }      
       if(user && user.active === 'true' && value <= 2) {
         const matchedUser = compearPassword(password, user.password)
         if (matchedUser) {

@@ -1,14 +1,14 @@
-import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { IsNumber, IsString } from "class-validator";
+import { ApiPropertyOptional } from "@nestjs/swagger";
+import { IsString } from "class-validator";
 export default class loginUserEntity {  
-    @ApiProperty({
+    @ApiPropertyOptional({
       type: String,
       example: '',
     })
     @IsString()
     username: string;
   
-    @ApiProperty({
+    @ApiPropertyOptional({
       type: String,
       example: '',
     })

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put, BadRequestException } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
@@ -22,6 +22,9 @@ export class BooksController {
   })
   create(@Body() createBookDto: CreateBookDto) {
     //แปลงวันที่ จาก xxxx-xx-xx เป็น ISODATE
+    if ( createBookDto.price == 0) {
+      throw new BadRequestException('Price not 0')
+    }
     const adddate = new Date(createBookDto.adddate);
     const newbook = { ...createBookDto, adddate };
     return this.booksService.create(newbook);

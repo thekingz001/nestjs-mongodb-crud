@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Req, BadRequestException } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { BooksService } from 'src/books/books.service';
 import { UsersService } from 'src/users/users.service';
+import { createOrderEntity } from './entities/create-order.entity';
 
 @ApiTags('Buy')
 @Controller('order')
@@ -18,12 +19,20 @@ export class OrderController {
   @Post()
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
+  @ApiResponse({
+    status: 200,
+    description: 'Success',
+    type: createOrderEntity,
+  })
   async create(@Req() req: any, @Body() createOrderDto: CreateOrderDto) {
     //ประกาศ Booksarray
     var booksarray = [];
     //หายอดทั้งหมด
     var total = 0;
     for (var i= 0; i< createOrderDto.books.length; i++){
+      if ( createOrderDto.books[i]['amout'] == 0) {
+        throw new BadRequestException('Amout not 0')
+      }
       //ดึง Book
       const book = await this.booksService.findonebookbyname(createOrderDto.books[i]['bookname']);
       //รวมยอด
@@ -47,6 +56,12 @@ export class OrderController {
     }
     //ดึง User
     const user = await this.usersService.findoneuser(req.user.username);
+    if ( user['active'] !== "true") {
+      throw new BadRequestException('You are banned')
+    }
+    if ( user['coin'] < total) {
+      throw new BadRequestException('Coin not enough')
+    }
     //หัก coin User
     const newcoin = user['coin'] - total;
     const user_id = String(user['_id']);
