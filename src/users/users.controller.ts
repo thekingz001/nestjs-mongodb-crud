@@ -71,7 +71,9 @@ export class UsersController {
     type: updateUserEntity,
   })
   updateuser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.updateuser(id, updateUserDto);
+    const password = encodePassword(updateUserDto.password);
+    const updateUser = { ...updateUserDto, password };
+    return this.usersService.updateuser(id, updateUser);
   }
   
   @Delete('deleteuser:id')

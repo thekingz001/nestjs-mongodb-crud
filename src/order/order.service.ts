@@ -1,12 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { identity } from 'rxjs';
-import { BooksService } from 'src/books/books.service';
-import { Books, BooksDocument } from 'src/books/schema/books.schema';
 import { Order, OrdersDocument } from 'src/order/schema/order.schema';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
 
 @Injectable()
 export class OrderService {
@@ -18,16 +14,54 @@ export class OrderService {
   }
 
   async findallorder() {
-    return this.ordersModel.find();
+    return this.ordersModel.find().lean();
   }
 
-  async findoerderbytype(type: string) {    
-    return this.ordersModel.find({book_type: type});
+  async findoerderbyid(id: string) {    
+    return this.ordersModel.find({_id: id}).lean();
   }
-
-
-  async update(id: string, updateOrderDto: UpdateOrderDto) {
-    return this.ordersModel.updateOne({_id: new Types.ObjectId(id)},{$set:updateOrderDto});
+  
+  async findreportoerder() {    
+    return this.ordersModel.aggregate(
+      [
+        {
+          $unwind: "$books"
+        },
+        {
+          $group: {
+            _id: {
+              bookname: "$books.bookname"
+            },
+            "sumAmout": {
+              $sum: "$books.amout"
+            },
+            "sumPrice": {
+              $sum: "$books.booktotal"
+            }
+          }
+        },
+        {
+          "$group": {
+            "_id": 0,
+            "data": {
+              $addToSet: {
+                "bookname": "$_id.bookname",
+                "sumAmout": "$sumAmout",
+                "sumPrice": "$sumPrice"
+              }
+            },
+          },
+        },
+        {
+          $unwind: "$data",
+        },
+        {
+          $sort: {
+            'data.bookname': 1,
+          }
+        },
+      ]
+    );
   }
 
   async removeorder(id: string) {

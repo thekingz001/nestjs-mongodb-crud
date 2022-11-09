@@ -39,7 +39,7 @@ export class OrderController {
         {
           bookname: book[0]['bookname'],
           price: book[0]['price'],
-          type: book[0]['booktype'],
+          booktype: book[0]['booktype'],
           amout: createOrderDto.books[i]['amout'],
           booktotal: book[0]['price'] * createOrderDto.books[i]['amout'],
         }
@@ -66,15 +66,22 @@ export class OrderController {
   @Get('getallorder')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
-  async findAll() {
+  async findallorder() {
     return this.orderService.findallorder();
   }
 
-  @Get('getorderby:type')
+  @Get('getorderby:id')
   @ApiBearerAuth('defaultBearerAuth')
   @UseGuards(JwtAuthGuard)
-  async findOne(@Param('type') type: string) {
-    return this.orderService.findoerderbytype(type);
+  async findoneorderbyid(@Param('id') id: string) {
+    return this.orderService.findoerderbyid(id);
+  }
+
+  @Get('reportorder')
+  @ApiBearerAuth('defaultBearerAuth')
+  @UseGuards(JwtAuthGuard)
+  async reportordersgroupbybookname() {
+    return this.orderService.findreportoerder();
   }
 
   @Delete('deleteorderby:id')

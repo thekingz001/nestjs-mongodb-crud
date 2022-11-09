@@ -20,12 +20,12 @@ export class Order {
     type: [{
       bookname: {type: String}, 
       price: {type: Number}, 
-      type: {type: String}, 
+      booktype: {type: String}, 
       amout: {type: Number},
       booktotal: {type: Number},
     }],
   })
-  books: { bookname: string; price: number; type: string; amout: number; booktotal: number; }[];
+  books: { bookname: string; price: number; booktype: string; amout: number; booktotal: number; }[];
 
 }
 
