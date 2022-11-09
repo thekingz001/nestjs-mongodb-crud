@@ -23,7 +23,7 @@ SwaggerModule.setup('api', app, document, {
 customSiteTitle: 'My App API documentation ByKanSaz',
 })
   const port = configService.get('PORT');
-  app.listen(port);
+  await app.listen(port);
   console.log('\x1b[42m%s\x1b[0m',"http://localhost:" + port + "/api");
   
 }
