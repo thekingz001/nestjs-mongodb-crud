@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Put, BadRequestException, Req } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
@@ -20,11 +20,14 @@ export class BooksController {
     description: 'Success',
     type: createBooksEntity
   })
-  create(@Body() createBookDto: CreateBookDto) {
-    //แปลงวันที่ จาก xxxx-xx-xx เป็น ISODATE
+  create(@Req() req: string, @Body() createBookDto: CreateBookDto) {
+    if ( req['user']['type'] !== "admin") {
+      throw new BadRequestException('You are not ADMIN')
+    }
     if ( createBookDto.price == 0) {
       throw new BadRequestException('Price not 0')
     }
+    //แปลงวันที่ จาก xxxx-xx-xx เป็น ISODATE
     const adddate = new Date(createBookDto.adddate);
     const newbook = { ...createBookDto, adddate };
     return this.booksService.create(newbook);

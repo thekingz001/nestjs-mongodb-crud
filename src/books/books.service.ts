@@ -10,6 +10,7 @@ import { UpdateBooksamountDto } from './dto/update-bookmount.dto';
 export class BooksService {
   constructor(@InjectModel(Books.name) private booksModel: Model<BooksDocument>) {}
   async create(createBooksDto: CreateBookDto): Promise<Books> {
+    
     const createdBooks = await this.booksModel.create(createBooksDto);
     return createdBooks;
   }

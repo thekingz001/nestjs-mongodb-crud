@@ -15,6 +15,12 @@ export default class validatepayloadUserEntity {
     })
     @IsString()
     username: string;
-
+    
+    @ApiProperty({
+      type: String,
+      example: '',
+    })
+    @IsString()
+    type: string;
     
   }

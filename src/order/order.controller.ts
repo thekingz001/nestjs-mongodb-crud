@@ -6,6 +6,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { BooksService } from 'src/books/books.service';
 import { UsersService } from 'src/users/users.service';
 import { createOrderEntity } from './entities/create-order.entity';
+import validateUserEntity from 'src/auth/entity/validate-user.entity';
 
 @ApiTags('Buy')
 @Controller('order')
@@ -24,7 +25,7 @@ export class OrderController {
     description: 'Success',
     type: createOrderEntity,
   })
-  async create(@Req() req: any, @Body() createOrderDto: CreateOrderDto) {
+  async create(@Req() req: string, @Body() createOrderDto: CreateOrderDto) {
     //ประกาศ Booksarray
     var booksarray = [];
     //หายอดทั้งหมด
@@ -55,7 +56,7 @@ export class OrderController {
       )
     }
     //ดึง User
-    const user = await this.usersService.findoneuser(req.user.username);
+    const user = await this.usersService.findoneuser(req['user']['username']);
     if ( user['active'] !== "true") {
       throw new BadRequestException('You are banned')
     }

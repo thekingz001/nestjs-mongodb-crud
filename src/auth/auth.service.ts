@@ -40,7 +40,7 @@ export class AuthService {
     }
 
     async login(user: validateUserEntity) {
-        const payload = { username: user.username, sub: JSON.stringify(user._id) };
+        const payload = { username: user.username, sub: JSON.stringify(user._id), type: user.type };
         return {
           access_token: this.jwtService.sign(payload),
         };
